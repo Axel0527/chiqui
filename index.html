@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Caja — Restaurante</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- TOPBAR: Selector de día + contadores -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">🍽️ <span>La Caja</span></div>
+      <div class="day-selector">
+        <button class="day-btn" id="btnPrevDay">‹</button>
+        <span class="day-label" id="dayLabel">Día 1</span>
+        <button class="day-btn" id="btnNextDay">›</button>
+        <button class="day-btn new-day-btn" id="btnNewDay" title="Nuevo día">+</button>
+      </div>
+    </div>
+    <div class="topbar-stats">
+      <div class="stat-card">
+        <span class="stat-label">Total del día</span>
+        <span class="stat-value" id="statTotal">$0</span>
+      </div>
+      <div class="stat-card aurora-card">
+        <span class="stat-label">🟣 Aurora</span>
+        <span class="stat-value" id="statAurora">$0</span>
+      </div>
+      <div class="stat-card xochil-card">
+        <span class="stat-label">🟢 Xochil</span>
+        <span class="stat-value" id="statXochil">$0</span>
+      </div>
+      <div class="stat-card orders-card">
+        <span class="stat-label">Ventas</span>
+        <span class="stat-value" id="statOrders">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <main class="app-layout">
+
+    <!-- MENÚ -->
+    <section class="menu-panel">
+      <div class="section-header">
+        <h2>Menú</h2>
+        <span class="section-hint">Toca para agregar</span>
+      </div>
+
+      <div class="category-label">— Caja Aurora —</div>
+      <div class="menu-grid" id="menuAurora"></div>
+
+      <div class="category-label xochil-label">— Caja Xochil —</div>
+      <div class="menu-grid" id="menuXochil"></div>
+    </section>
+
+    <!-- PEDIDO ACTIVO -->
+    <aside class="order-panel">
+      <div class="section-header">
+        <h2>Pedido activo</h2>
+        <button class="clear-btn" id="btnClearOrder" title="Limpiar pedido">✕ Limpiar</button>
+      </div>
+
+      <div class="order-items" id="orderItems">
+        <div class="empty-order">
+          <span class="empty-icon">🧾</span>
+          <p>Sin productos aún</p>
+        </div>
+      </div>
+
+      <div class="order-footer">
+        <div class="caja-mini" id="cajaMini" style="display:none">
+          <div class="caja-mini-row aurora-row">
+            <span>🟣 Aurora</span><span id="miniAurora">$0</span>
+          </div>
+          <div class="caja-mini-row xochil-row">
+            <span>🟢 Xochil</span><span id="miniXochil">$0</span>
+          </div>
+        </div>
+        <div class="total-row">
+          <span>Total</span>
+          <span class="total-amount" id="totalAmount">$0</span>
+        </div>
+        <button class="btn-confirm" id="btnConfirm" disabled>Confirmar pedido →</button>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- MODAL: Cobrar -->
+  <div class="overlay hidden" id="payOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Cobrar pedido</h3>
+        <button class="modal-close" id="btnCancelarPago">✕</button>
+      </div>
+
+      <div class="modal-summary" id="paySummary"></div>
+
+      <div class="modal-cajas" id="modalCajas"></div>
+
+      <div class="pay-input-group">
+        <label>Pago del cliente ($)</label>
+        <input type="number" id="pagoInput" placeholder="0.00" min="0" step="1" autocomplete="off" />
+      </div>
+
+      <div class="cambio-box" id="cambioBox">
+        <span class="cambio-label">Cambio</span>
+        <span class="cambio-amount" id="cambioAmount">$0</span>
+      </div>
+
+      <div class="modal-btns">
+        <button class="btn-secondary" id="btnCancelarPago2">Cancelar</button>
+        <button class="btn-primary" id="btnFinalizarPago">Finalizar venta ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Venta exitosa -->
+  <div class="overlay hidden" id="successOverlay">
+    <div class="modal success-modal">
+      <div class="success-icon">✓</div>
+      <h3>¡Venta registrada!</h3>
+      <p id="successMsg"></p>
+      <div class="success-cajas" id="successCajas"></div>
+      <button class="btn-primary full-btn" id="btnNuevoPedido">Nuevo pedido</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
